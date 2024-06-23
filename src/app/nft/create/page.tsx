@@ -16,7 +16,7 @@ const CreateNft = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex w-full flex-col justify-center items-center">
       <p>Create NFT</p>
       <form className="max-w-sm mx-auto flex flex-col gap-5">
         <div className="max-w-sm mx-auto flex flex-row gap-5">
