@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import AppWalletProvider from "./component/appWallet";
 import Link from "next/link";
 import Connectbutton from "./component/connectbutton";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,11 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-screen grid grid-rows-[80px_1fr]">
+      <body className="h-screen w-screen grid grid-rows-[80px_1fr]">
         <AppWalletProvider>
           <header className="flex items-center justify-between p-4 bg-gray-100 border-b border-gray-300 relative">
             <div className="absolute left-1/2 transform -translate-x-1/2">
-              <p className="text-xl font-semibold">Nextjs Demo</p>
+              <p className="text-xl font-semibold text-gray-800">Nextjs Demo</p>
             </div>
             <div className="ml-auto">
               <Connectbutton />
