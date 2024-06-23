@@ -38,7 +38,7 @@ export default function RootLayout({
                   Chợ NFT
                 </button>
               </Link>
-              <Link href={"/managerform"}>
+              <Link href={"/manager"}>
                 <button className="bg-violet-500 w-52 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-md py-2 text-white">
                   Quản Lý
                 </button>
