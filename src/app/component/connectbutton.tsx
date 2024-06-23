@@ -2,11 +2,10 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import React from 'react'
 
-const page = () => {
+const Connectbutton = () => {
   return (
-    <div>
-    </div>
+            <WalletMultiButton />
   )
 }
 
-export default page
+export default Connectbutton
