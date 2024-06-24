@@ -84,6 +84,8 @@ const CreateNft = () => {
           image: nft.json?.image || "",
           tokenAddress: nft.address.toString(),
           uri: nft.uri,
+          title: nft.name,
+          description: nft.json?.description || "",
         });
         router.push("/nft/market");
       } catch (error) {

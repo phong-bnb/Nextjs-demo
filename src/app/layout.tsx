@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-screen w-screen grid grid-rows-[80px_1fr]">
+      <body className="h-screen w-screen grid grid-rows-[80px_1fr] bg-white">
         <AppWalletProvider>
           <header className="flex items-center justify-between p-4 bg-gray-100 border-b border-gray-300 relative">
             <div className="absolute left-1/2 transform -translate-x-1/2">
@@ -26,7 +26,7 @@ export default function RootLayout({
               <Connectbutton />
             </div>
           </header>
-          <div className="flex flex-1">
+          <div className="flex flex-1 bg-white text-black">
             <aside className="w-60 flex flex-col gap-10 bg-gray-100 p-4  border-r border-gray-300">
               <Link href={"/nft/create"}>
                 <button className="bg-violet-500 w-52 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 rounded-md py-2 text-white">
