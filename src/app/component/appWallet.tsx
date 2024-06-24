@@ -27,8 +27,7 @@ export default function AppWalletProvider({
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(
     () => [
-      // manually add any legacy wallet adapters here
-      // new UnsafeBurnerWalletAdapter(),
+     
       new PhantomWalletAdapter(),
       new BitgetWalletAdapter(),
     ],

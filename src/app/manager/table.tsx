@@ -37,26 +37,38 @@ const MemberTable = ({ data = [], onDetele }: IProps) => {
   };
 
   return (
-    <div className="flex flex-1 flex-col w-full">
-      <h2 className="ml-12 p-2 text-4xl pb-3">Manager Member</h2>
-      <Link href={"/manager/new"}>
-        <Button>Create User</Button>
-      </Link>
-      <div className="ml-5">
+    <div className="flex flex-1 flex-col m-auto ">
+      <div className="flex flex-row items-center justify-between">
+        <h2 className="ml-12 p-2 text-4xl pb-3">Manager Member</h2>
+        <Link href={"/manager/new"}>
+          <Button className="bg-blue-500 mr-5 text-white font-bold   py-5">
+            Create User
+          </Button>
+        </Link>
+      </div>
+      <div className="ml-5 flex ">
         <SelectColumns value={selectedColumns} onChange={handleColumnsChange} />
       </div>
-      <table className="m-8 w-full text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="m-8  text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className=" text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">NAME</th>
-            <th scope="col">EMAIL</th>
+            <th scope="col" className=" text-center">
+              ID
+            </th>
+            <th scope="col" className="text-center">
+              NAME
+            </th>
+            <th scope="col" className=" text-center">
+              EMAIL
+            </th>
             {selectedColumns.map((column) => (
-              <th scope="col" key={column}>
+              <th scope="col" className=" text-center" key={column}>
                 {column}
               </th>
             ))}
-            <th scope="col">ACTION</th>
+            <th scope="col" className=" text-center">
+              ACTION
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -65,11 +77,17 @@ const MemberTable = ({ data = [], onDetele }: IProps) => {
               className=" border-b dark:bg-gray-800 dark:border-gray-700"
               key={member.id}
             >
-              <th scope="col">{member.id}</th>
-              <th scope="col">{member.name}</th>
-              <th scope="col">{member.email}</th>
+              <td scope="col" className=" text-center">
+                {member.id}
+              </td>
+              <th scope="col" className=" text-center">
+                {member.name}
+              </th>
+              <td scope="col" className=" text-center">
+                {member.email}
+              </td>
               {selectedColumns.map((column) => (
-                <td className="px-6 py-4 break-keep" key={column}>
+                <td className="px-6 py-4 break-keep text-center" key={column}>
                   {column === "dateOfBirth" ? (
                     dayjs(member[column]).format("DD/MM/YYYY")
                   ) : column === "activeRange" ? (
@@ -88,17 +106,17 @@ const MemberTable = ({ data = [], onDetele }: IProps) => {
                   {/* Đổi định dạng */}
                 </td>
               ))}
-              <td className="text-center">
-                <div className="flex gap-2">
+              <td scope="col" className="text-center">
+                <div className="flex gap-2 items-center w-full ml-2">
                   <Link href={`/manager/${member.id}`}>
-                    <Pen />
+                    <Pen className="text-blue-500" />
                   </Link>
                   <Popconfirm
                     title="Delete this member"
                     description="Are you sure to delete this member?"
                     onConfirm={() => handleDelete(member.id)}
                   >
-                    <Trash />
+                    <Trash className="text-red-500" />
                   </Popconfirm>
                 </div>
               </td>

@@ -6,7 +6,8 @@ export const COLUMN_NAMES: Array<keyof Member> = [
   "activeRange",
   "dateOfBirth",
   "linkedIn",
-  "phoneNumber",
+    "phoneNumber",
+  "github"
 ];
 
 interface IProps {
@@ -26,12 +27,13 @@ export default function SelectColumns({ onChange, value }: IProps) {
       styles={{
         multiValueLabel: (base) => ({
           ...base,
-          color: "black",
+              color: "black",
+          
         }),
       }}
-      isMulti
-      onChange={(e) => onChange(e.map((i) => i.value))}
-      options={COLUMN_NAMES.map((n) => ({ value: n, label: convertLabel(n) }))}
+      isMulti // LƯU GIÁ TRỊ À HIỂN THỊ ĐÃ ĐANG CHỌN TRÊN SELECT
+      onChange={(e) => onChange(e.map((i) => i.value))} // BẤM CHỌN THÌ RA CỘT 
+      options={COLUMN_NAMES.map((n) => ({ value: n, label: convertLabel(n) }))} // SHOW COLUMNS TRONG SELET
     />
   );
 }
