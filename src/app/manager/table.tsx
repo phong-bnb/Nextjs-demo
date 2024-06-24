@@ -38,20 +38,12 @@ const MemberTable = ({ data = [], onDetele }: IProps) => {
 
   return (
     <div className="flex flex-1 flex-col m-auto ">
-      <div className="flex flex-row items-center justify-between">
-        <h2 className="ml-12 p-2 text-4xl pb-3">Manager Member</h2>
-        <Link href={"/manager/new"}>
-          <Button className="bg-blue-500 mr-5 text-white font-bold   py-5">
-            Create User
-          </Button>
-        </Link>
-      </div>
       <div className="ml-5 flex ">
         <SelectColumns value={selectedColumns} onChange={handleColumnsChange} />
       </div>
       <table className="m-8  text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className=" text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+        <thead className=" text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400 py-4">
+          <tr className="bg-gray-300">
             <th scope="col" className=" text-center">
               ID
             </th>
@@ -74,20 +66,23 @@ const MemberTable = ({ data = [], onDetele }: IProps) => {
         <tbody>
           {data.map((member) => (
             <tr
-              className=" border-b dark:bg-gray-800 dark:border-gray-700"
+              className=" border-b dark:bg-gray-800 dark:border-gray-700 text-black"
               key={member.id}
             >
-              <td scope="col" className=" text-center">
+              <td scope="col" className=" text-center text-black">
                 {member.id}
               </td>
-              <th scope="col" className=" text-center">
+              <th scope="col" className=" text-center text-black">
                 {member.name}
               </th>
-              <td scope="col" className=" text-center">
+              <td scope="col" className=" text-center text-black">
                 {member.email}
               </td>
               {selectedColumns.map((column) => (
-                <td className="px-6 py-4 break-keep text-center" key={column}>
+                <td
+                  className="px-6 py-4 break-keep text-center text-black"
+                  key={column}
+                >
                   {column === "dateOfBirth" ? (
                     dayjs(member[column]).format("DD/MM/YYYY")
                   ) : column === "activeRange" ? (
