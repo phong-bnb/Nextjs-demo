@@ -99,7 +99,7 @@ const NFTList = () => {
               href="#"
               className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
             >
-              Apple iMac 27", 1TB HDD, Retina 5K Display, M3 Max
+               1TB HDD, Retina 5K Display, M3 Max
             </a>
             <div className="mt-2 flex items-center gap-2">
               <div className="flex items-center">

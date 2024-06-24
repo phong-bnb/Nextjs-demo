@@ -1,23 +1,26 @@
 import * as React from "react";
-
 import Select from "react-select";
 
-export const COLUM_NAMES = [
+export const COLUMN_NAMES = [
   "AGE",
   "COUNTRY",
   "JOB",
   "GITHUB",
   "PHONE NUMBER",
-  "DATE OF BIRTH",
+    "DATE OF BIRTH",
+  "CV"
 ];
 
 interface IProps {
   onChange: (values: string[]) => void;
+  value: string[];
 }
-export default function SelectColumns({ onChange }: IProps) {
+
+export default function SelectColumns({ onChange, value }: IProps) {
   return (
     <Select
       closeMenuOnSelect={false}
+      value={value.map((v) => ({ value: v, label: v }))}
       styles={{
         multiValueLabel: (base) => ({
           ...base,
@@ -26,7 +29,7 @@ export default function SelectColumns({ onChange }: IProps) {
       }}
       isMulti
       onChange={(e) => onChange(e.map((i) => i.value))}
-      options={COLUM_NAMES.map((n) => ({ value: n, label: n }))}
+      options={COLUMN_NAMES.map((n) => ({ value: n, label: n }))}
     />
   );
 }

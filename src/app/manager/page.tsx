@@ -1,14 +1,30 @@
 "use client";
 import React, { useState } from "react";
 import SelectColumns from "./select";
+import Link from "next/link";
 
 const Page = () => {
-  const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
+  const [selectedColumns, setSelectedColumns] = useState<string[]>(() => {
+    try {
+      const savedColumns = localStorage.getItem("selectedColumns");
+      return savedColumns ? JSON.parse(savedColumns) : [];
+    } catch (e) {
+      console.error("Error parsing saved columns from localStorage:", e);
+      return [];
+    }
+  });
+
+  const handleColumnsChange = (columns: string[]) => {
+    setSelectedColumns(columns);
+    localStorage.setItem("selectedColumns", JSON.stringify(columns));
+  };
+
   return (
     <div className="flex flex-col w-full">
-      <h2 className="ml-12 p-2 text-4xl pb-3"> Resouse Manager </h2>
+          <h2 className="ml-12 p-2 text-4xl pb-3"> Resource Manager </h2>
+          <Link href={'/createColum'}> <button>Create Colum</button></Link>
       <div className="w-[30%] ml-5">
-        <SelectColumns onChange={(v) => setSelectedColumns(v)} />
+        <SelectColumns value={selectedColumns} onChange={handleColumnsChange} />
       </div>
       <table className="m-8 w-full text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className=" text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
@@ -42,13 +58,11 @@ const Page = () => {
               Black
             </th>
             <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4 flex text-center">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
+            {selectedColumns.map((column) => (
+              <td className="px-6 py-4" key={column}>
+                $99
+              </td>
+            ))}
           </tr>
           <tr className=" border-b dark:bg-gray-800 dark:border-gray-700">
             <td className="px-6 py-4">Microsoft Surface Pro</td>
@@ -59,13 +73,11 @@ const Page = () => {
               Black
             </th>
             <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
+            {selectedColumns.map((column) => (
+              <td className="px-6 py-4" key={column}>
+                $99
+              </td>
+            ))}
           </tr>
           <tr className=" dark:bg-gray-800">
             <td className="px-6 py-4">Magic Mouse 2</td>
@@ -76,13 +88,11 @@ const Page = () => {
               Black
             </th>
             <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
-            <td className="px-6 py-4">Accessories</td>
-            <td className="px-6 py-4">$99</td>
+            {selectedColumns.map((column) => (
+              <td className="px-6 py-4" key={column}>
+                $99
+              </td>
+            ))}
           </tr>
         </tbody>
       </table>

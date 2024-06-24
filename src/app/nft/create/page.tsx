@@ -14,27 +14,27 @@ import {
 } from "@metaplex-foundation/js";
 import { useRouter } from "next/navigation";
 interface IInput {
-  name: string,
-  description: string,
-  image: FileList | null,
-  price: number
+  name: string;
+  description: string;
+  image: FileList | null;
+  price: number;
 }
 const CreateNft = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { connection } = useConnection();
   const wallet = useWallet();
 
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IInput>({
     defaultValues: {
-      name: '',
-      description: '',
-    }
-  })
+      name: "",
+      description: "",
+    },
+  });
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
@@ -51,17 +51,19 @@ const CreateNft = () => {
 
   const imageField = register("image", { required: true });
   const metaplex = Metaplex.make(connection)
-    .use(walletAdapterIdentity(wallet)).use(irysStorage({
-      address: 'https://devnet.irys.xyz',
-      providerUrl: "https://api.devnet.solana.com",
-      timeout: 120000,
-    }))
-
+    .use(walletAdapterIdentity(wallet))
+    .use(
+      irysStorage({
+        address: "https://devnet.irys.xyz",
+        providerUrl: "https://api.devnet.solana.com",
+        timeout: 120000,
+      })
+    );
 
   const onMintNft = async ({ image, name, description, price }: IInput) => {
     const img = image?.item(0);
     if (img) {
-      setLoading(true)
+      setLoading(true);
       try {
         const file: MetaplexFile = await toMetaplexFileFromBrowser(img);
         const { uri, metadata } = await metaplex.nfts().uploadMetadata({
@@ -79,18 +81,18 @@ const CreateNft = () => {
         });
         await SaveNft({
           author: nft.creators[0].address.toString(),
-          image: nft.json?.image || '',
+          image: nft.json?.image || "",
           tokenAddress: nft.address.toString(),
-          uri: nft.uri
-        })
-        router.push('/nft/market')
+          uri: nft.uri,
+        });
+        router.push("/nft/market");
       } catch (error) {
-        console.log(error)
+        console.log(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-  }
+  };
 
   return (
     <div className="flex w-full flex-col items-center bg-white">
@@ -111,12 +113,21 @@ const CreateNft = () => {
                 type="text"
                 id="name"
                 maxLength={15}
-                {...register('name', { required: { value: true, message: 'Name is required !' } })}
-                className={clsx("bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", {
-                  "border-pink-600": errors.name?.message
+                {...register("name", {
+                  required: { value: true, message: "Name is required" },
                 })}
+                className={clsx(
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+                  {
+                    "border-pink-600": errors.name?.message,
+                  }
+                )}
               />
-              {errors.name?.message && <i className='text-xs font-semibold text-red-300'>{errors.name?.message}</i>}
+              {errors.name?.message && (
+                <i className="text-xs font-semibold text-red-300">
+                  {errors.name?.message}
+                </i>
+              )}
             </div>
             <div className="mb-5">
               <label
@@ -128,7 +139,7 @@ const CreateNft = () => {
               <input
                 type="number"
                 id="price"
-                {...register('price', { required: true })}
+                {...register("price", { required: true })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -143,14 +154,16 @@ const CreateNft = () => {
                 type="text"
                 maxLength={200}
                 id="descriptions"
-                {...register('description', { required: true })}
+                {...register("description", { required: true })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className={clsx("text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50 disabled:cursor-progress")}
+              className={clsx(
+                "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50 disabled:cursor-progress"
+              )}
             >
               Submit
             </button>
@@ -160,26 +173,32 @@ const CreateNft = () => {
               <div className="flex items-center justify-center w-full">
                 <label
                   htmlFor="dropzone-file"
-                  className={clsx("flex flex-col items-center justify-center w-full h-52 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600", { 'border-red-300': false })}
+                  className={clsx(
+                    "flex flex-col items-center justify-center w-full h-52 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600",
+                    { "border-red-300": false }
+                  )}
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <CloudUpload className='w-10 h-10 text-gray-500' />
+                    <CloudUpload className="w-10 h-10 text-gray-500" />
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or drag and drop
+                      <span className="font-semibold">Click to upload</span> or
+                      drag and drop
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       SVG, PNG, JPG or GIF (MAX. 800x400px)
                     </p>
                   </div>
-                  <input id="dropzone-file" type="file"
+                  <input
+                    id="dropzone-file"
+                    type="file"
                     {...imageField}
                     multiple={false}
                     onChange={(e) => {
                       imageField.onChange(e);
-                      handleImageChange(e)
+                      handleImageChange(e);
                     }}
-                    className="hidden" />
-
+                    className="hidden"
+                  />
                 </label>
               </div>
               {imageSrc && (
